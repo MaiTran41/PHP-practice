@@ -14,9 +14,24 @@ and a message should be displayed like this:
 
 Step 3: Otherwise, simply display the form
 
-
-
 */
+
+
+?>
+  <form action="" method="POST">
+    <label for="">Search:</label>
+    <input type="text" name="search" id="search">
+    <button>Search</button>
+  </form>
+  <?php
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  $searchTerm = $_POST['search']; 
+
+  echo "You searched for $searchTerm " ; 
+}
+
 ?>
 
 <?php include 'includes/footer.php'; ?>

@@ -7,7 +7,7 @@
 //After fixing this form, simply run it few times to check how this works
 ?>
 
-<form>
+<form method="post">
   <p>Name: <input type="text" name="name"></p>
   <p>Age: <input type="text" name="age"></p>
   <p>Email: <input type="text" name="email"></p>

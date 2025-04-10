@@ -34,25 +34,60 @@ Step 9: In the final row of the table, previous step is repeated using different
 
 */
 
+
+class Account {
+  protected int $number; 
+  public string $type; 
+  protected float $balance; 
+
+public  function __construct(int $number, string $type, float $balance = 0.00) {
+$this->number = $number; 
+$this->type = $type; 
+$this->balance = $balance; 
+  }
+
+public function deposit(float $deposit_amount): float {
+    $this->balance += $deposit_amount; 
+    return $this->balance; 
+  }
+
+ public function withdraw(float $withdraw_amount): float {
+  $this->balance -= $withdraw_amount; 
+    return $this->balance; 
+  }
+}
+
+ $checking = new Account(1000746625, 'checking', 0); 
+$saving = new Account(2625264848, 'saving', 0 ); 
 ?>
+
+
 
 <?php include 'includes/header.php'; ?>
 <h2>Account Balances</h2>
 <table>
   <tr>
     <th>Date</th>
+    <th><?= $checking->type?></th>
+    <th><?= $saving->type?></th>
 
   </tr>
   <tr>
     <td>23 June</td>
+    <td>$<?= $checking->deposit(32) ?> </td>
+    <td>$<?= $saving->deposit(756) ?> </td>
+  
+  </tr>
+  <tr>
+  <td>24 June</td>
+  <td>$<?= $checking->deposit(12) ?> </td>
+    <td>$<?= $saving->withdraw(100) ?> </td>
 
   </tr>
   <tr>
-    <td>24 June</td>
-
-  </tr>
-  <tr>
-    <td>25 June</td>
+  <td>25 June</td>
+  <td>$<?= $checking->withdraw(5) ?> </td>
+    <td>$<?= $saving->deposit(300) ?> </td>
 
   </tr>
 </table>
