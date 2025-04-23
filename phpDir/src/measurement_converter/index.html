@@ -86,7 +86,7 @@
       </form>
 
       <div id="result" class="result">
-        <!-- Result will be displayed here by JavaScript -->
+        
       </div>
     </div>
 
@@ -94,21 +94,21 @@
       function updateConversionOptions() {
         const conversionType = document.getElementById("conversion_type").value;
 
-        // Hide all option groups
+        
         document.querySelectorAll(".option-group").forEach((group) => {
           group.style.display = "none";
         });
 
-        // Show selected option group
+        
         document.getElementById(conversionType + "-options").style.display =
           "block";
       }
 
-      // Initialize the page
+   
       window.onload = function () {
         updateConversionOptions();
 
-        // Check for conversion results in URL parameters
+
         const urlParams = new URLSearchParams(window.location.search);
         if (
           urlParams.has("result") &&
@@ -121,7 +121,7 @@
           const fromUnit = urlParams.get("from_unit");
           const toUnit = urlParams.get("to_unit");
 
-          // Display the result
+         
           const resultDiv = document.getElementById("result");
           resultDiv.innerHTML = `
                     <h2>Conversion Result</h2>
@@ -130,9 +130,9 @@
         }
 
         document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission that would navigate away
+        e.preventDefault(); 
         
-        // Get form data
+       
         const formData = new FormData(this);
         
         // Send AJAX request to converter.php
@@ -147,14 +147,14 @@
             return response.json();
         })
         .then(data => {
-            // Display the conversion result
+       
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <h2>Conversion Result</h2>
                 <p>${data.from_value} ${data.from_unit} = ${data.result} ${data.to_unit}</p>
             `;
             
-            // Optionally scroll to the result
+           
             resultDiv.scrollIntoView({ behavior: 'smooth' });
         })
         .catch(error => {
