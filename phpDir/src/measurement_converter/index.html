@@ -10,7 +10,7 @@
     <div class="container">
       <h1>Measurement Converter</h1>
 
-      <form action="./measurement_converter.php" method="post">
+      <form action="converter.php" method="post">
         <div class="conversion-type">
           <h2>Select Conversion Type</h2>
           <select
@@ -128,6 +128,43 @@
                     <p>${fromValue} ${fromUnit} = ${result} ${toUnit}</p>
                 `;
         }
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission that would navigate away
+        
+        // Get form data
+        const formData = new FormData(this);
+        
+        // Send AJAX request to converter.php
+        fetch('converter.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Display the conversion result
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h2>Conversion Result</h2>
+                <p>${data.from_value} ${data.from_unit} = ${data.result} ${data.to_unit}</p>
+            `;
+            
+            // Optionally scroll to the result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = `
+                <h2>Error</h2>
+                <p>There was a problem with the conversion. Please try again.</p>
+            `;
+        });
+      });
       };
     </script>
   </body>
