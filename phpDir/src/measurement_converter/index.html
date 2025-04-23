@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Measurement Converter</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Measurement Converter</h1>
+
+      <form action="./measurement_converter.php" method="post">
+        <div class="conversion-type">
+          <h2>Select Conversion Type</h2>
+          <select
+            name="conversion_type"
+            id="conversion_type"
+            onchange="updateConversionOptions()"
+          >
+            <option value="temperature">Temperature</option>
+            <option value="speed">Speed</option>
+            <option value="mass">Mass</option>
+          </select>
+        </div>
+
+        <div class="conversion-options">
+          <div id="temperature-options" class="option-group">
+            <h2>Temperature Conversion</h2>
+            <select name="temperature_conversion">
+              <option value="celsius_to_fahrenheit">
+                Celsius to Fahrenheit
+              </option>
+              <option value="celsius_to_kelvin">Celsius to Kelvin</option>
+            </select>
+            <div class="input-group">
+              <label for="temperature_value">Temperature in Celsius:</label>
+              <input
+                type="number"
+                step="0.01"
+                name="temperature_value"
+                id="temperature_value"
+                placeholder="Enter value"
+              />
+            </div>
+          </div>
+
+          <div id="speed-options" class="option-group">
+            <h2>Speed Conversion</h2>
+            <select name="speed_conversion">
+              <option value="kmh_to_ms">km/h to m/s</option>
+              <option value="kmh_to_knots">km/h to knots</option>
+            </select>
+            <div class="input-group">
+              <label for="speed_value">Speed in km/h:</label>
+              <input
+                type="number"
+                step="0.01"
+                name="speed_value"
+                id="speed_value"
+                placeholder="Enter value"
+              />
+            </div>
+          </div>
+
+          <div id="mass-options" class="option-group">
+            <h2>Mass Conversion</h2>
+            <select name="mass_conversion">
+              <option value="kg_to_g">kg to g</option>
+              <option value="g_to_kg">g to kg</option>
+            </select>
+            <div class="input-group">
+              <label for="mass_value">Mass:</label>
+              <input
+                type="number"
+                step="0.01"
+                name="mass_value"
+                id="mass_value"
+                placeholder="Enter value"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="convert-btn">Convert</button>
+      </form>
+
+      <div id="result" class="result">
+        <!-- Result will be displayed here by JavaScript -->
+      </div>
+    </div>
+
+    <script>
+      function updateConversionOptions() {
+        const conversionType = document.getElementById("conversion_type").value;
+
+        // Hide all option groups
+        document.querySelectorAll(".option-group").forEach((group) => {
+          group.style.display = "none";
+        });
+
+        // Show selected option group
+        document.getElementById(conversionType + "-options").style.display =
+          "block";
+      }
+
+      // Initialize the page
+      window.onload = function () {
+        updateConversionOptions();
+
+        // Check for conversion results in URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (
+          urlParams.has("result") &&
+          urlParams.has("from_value") &&
+          urlParams.has("from_unit") &&
+          urlParams.has("to_unit")
+        ) {
+          const result = urlParams.get("result");
+          const fromValue = urlParams.get("from_value");
+          const fromUnit = urlParams.get("from_unit");
+          const toUnit = urlParams.get("to_unit");
+
+          // Display the result
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerHTML = `
+                    <h2>Conversion Result</h2>
+                    <p>${fromValue} ${fromUnit} = ${result} ${toUnit}</p>
+                `;
+        }
+      };
+    </script>
+  </body>
+</html>

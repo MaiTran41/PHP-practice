@@ -1,7 +1,6 @@
 <?php
 
-require_once 'calculator.php';
-?>
+require_once 'calculator.php'; ?>
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +13,9 @@ require_once 'calculator.php';
     <div class="calculator">
         <h1>PHP Calculator</h1>
 
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form method="post" action="<?php echo htmlspecialchars(
+            $_SERVER['PHP_SELF'],
+        ); ?>">
             <div class="form-group">
                 <label for="num1">First Number:</label>
                 <input type="number" name="num1" id="num1" value="<?php echo $num1_original; ?>" step="any" required>
@@ -23,10 +24,22 @@ require_once 'calculator.php';
             <div class="form-group">
                 <label for="operation">Operation:</label>
                 <select name="operation" id="operation">
-                    <option value="add" <?php if ($operation == 'add') echo 'selected'; ?>>Addition (+)</option>
-                    <option value="subtract" <?php if ($operation == 'subtract') echo 'selected'; ?>>Subtraction (-)</option>
-                    <option value="multiply" <?php if ($operation == 'multiply') echo 'selected'; ?>>Multiplication (×)</option>
-                    <option value="divide" <?php if ($operation == 'divide') echo 'selected'; ?>>Division (÷)</option>
+                    <option value="add" <?php if ($operation == 'add') {
+                        echo 'selected';
+                    } ?>>Addition (+)</option>
+                    <option value="subtract" <?php if (
+                        $operation == 'subtract'
+                    ) {
+                        echo 'selected';
+                    } ?>>Subtraction (-)</option>
+                    <option value="multiply" <?php if (
+                        $operation == 'multiply'
+                    ) {
+                        echo 'selected';
+                    } ?>>Multiplication (×)</option>
+                    <option value="divide" <?php if ($operation == 'divide') {
+                        echo 'selected';
+                    } ?>>Division (÷)</option>
                 </select>
             </div>
 
@@ -48,9 +61,7 @@ require_once 'calculator.php';
             <div class="result">
                 <h3>Result</h3>
                 <p id="result-number">
-                    <?php
-                    echo $result;
-                    ?>
+                    <?php echo $result; ?>
                 </p>
             </div>
         <?php endif; ?>
